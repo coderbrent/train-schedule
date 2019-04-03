@@ -1,0 +1,22 @@
+.blue {
+  background-color: steelblue !important;
+  color: white;
+}
+
+.red {
+  background-color: indianred !important;
+  color: white;
+}
+
+h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: indianred;
+}
+
+p {
+  color: #777;
+}
+
+h5 {
+  color: #555;
+}
