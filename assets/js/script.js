@@ -10,7 +10,9 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-var arrivalTime;
+
+var currentTime = moment().format();
+  console.log(currentTime);
 
 $("#submit-button").on("click", function() {
   event.preventDefault();
@@ -18,11 +20,8 @@ $("#submit-button").on("click", function() {
     name: $("#train-name-input").val().trim(),
     dest: $("#destination-input").val().trim(),
     time: $("#first-train-time-input").val().trim(),
-    freq: $("#frequency-input").val().trim()
+    freq: $("#frequency-input").val().trim(),
   };
-
-  // arrivalTime = currentTime.add(freq.time, 'minutes');
-  // console.log(arrivalTime);
 
   database.ref().push({
     trainName: newTrain.name,
@@ -39,8 +38,6 @@ $("#submit-button").on("click", function() {
 })
 
 database.ref().on("child_added", function(snapshot) {
-  console.log(snapshot.val());
-
   var newRow = $("<tr>");
   var trainNameField = $("<td>").text(snapshot.val().trainName);
   var trainDestField = $("<td>").text(snapshot.val().trainDest);
@@ -50,6 +47,14 @@ database.ref().on("child_added", function(snapshot) {
   newRow.append(trainNameField, trainDestField, trainFreqField, trainTimeField);
   $("tbody").append(newRow);
 
+  var currentTime = moment().format("HH:mm");
+  console.log("the current time is " + currentTime);
+
+  var initialTime = snapshot.val().trainTime;
+  console.log("this train first leaves at " + initialTime);
+
+  var trainMin = moment().format("mm", snapshot.val().trainFreq);
+  console.log(trainMin);
   })
 
 
